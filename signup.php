@@ -88,7 +88,7 @@ if (empty($e)) {
             $sql = "INSERT INTO member (name, email, phone, password) VALUES ('$name', '$e', '$ph', '$hash')";
             $result = $conn->query($sql);
             if ($result) {
-                echo '<script type="text/javascript">';
+                echo '<script >';
                 echo 'swal.fire({
                      icon: "success",
                     title: "Wow!",
