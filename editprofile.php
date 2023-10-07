@@ -201,7 +201,7 @@ else{
             <tr>
                 <td>Upload Profile</td>
                 <td>
-                    <input type="file" name="image" id="image"><br>
+                    <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png"><br>
                 </td>
             </tr>
  

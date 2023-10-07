@@ -176,8 +176,8 @@ if (isset($_GET['edit_category'])) {
             <input type="number" name="price" class="transparent" id="price" value="<?php echo $price; ?>"><br>
         </div>
         <div>
-            <label for="">Image</label><br>
-            <input type="file" name="image" class="transparent" id="image"><br>
+            <label for="tmage">Image</label><br>
+            <input type="file" name="image" class="transparent" id="image" accept=".jpg, .jpeg, .png"><br>
         </div>
         <div>
             <input type="hidden" name="category_id" value="<?php echo $cid; ?>">
