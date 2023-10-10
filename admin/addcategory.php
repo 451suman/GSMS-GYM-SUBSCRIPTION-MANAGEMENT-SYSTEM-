@@ -132,7 +132,8 @@ if (isset($_POST["add_category"])) {
 
         <div>
             <label for="image">Image</label><br>
-            <input type="file" name="image" class="transparent" id="image" accept=".jpg, .jpeg, .png"><br>
+            <input type="file" name="image" class="transparent" id="image" accept=".jpg, .jpeg, .png"  required><br>
+            <p style="font-size: 15px;">Please upload Image in this format  <br> (jpg,jpeg,png).</p>
         </div>
 
         <div>

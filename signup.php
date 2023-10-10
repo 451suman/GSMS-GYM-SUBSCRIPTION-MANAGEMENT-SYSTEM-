@@ -110,7 +110,6 @@ if (empty($e)) {
                 echo 'window.location.href = "login.php";';
                 echo '</script>';
             }
-        
     }
 }
 ?>
@@ -135,7 +134,7 @@ if (empty($e)) {
 
         <div>
             <label for="password">Confirm Password</label><br>
-            <input type="password" name="c_pass" minlength="10" class="transparent" required><br>
+            <input type="password" name="c_pass" minlength="10" class="transparent" placeholder="Only 10 character" required><br>
         </div>
 
         <div>

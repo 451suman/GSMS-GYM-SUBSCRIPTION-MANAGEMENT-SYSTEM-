@@ -97,19 +97,15 @@ if(isset($_GET['delete_category']))
                 <td><img src='../img/$image'></td>
                 
                 <td > 
-
-              
-
-                <form action='edit_category.php' method='get'>  
-                <input type='hidden' value='$cid' name='category_id' />
-                    <input type='submit' name='edit_category' value='Edit' class='edit_delete_green'> 
-                </form>
-                <form action='category.php' method='get'>
-                <input type='hidden' value='$cid' name='category_id' />
-                <input type='submit' name='delete_category' value='Delete' class='edit_delete_red'>
-                </form>
-
-                
+                        <form action='edit_category.php' method='get'>  
+                        <input type='hidden' value='$cid' name='category_id' />
+                            <input type='submit' name='edit_category' value='Edit' class='edit_delete_green'> 
+                        </form>
+                        
+                        <form action='category.php' method='get'>
+                        <input type='hidden' value='$cid' name='category_id' />
+                        <input type='submit' name='delete_category' value='Delete' class='edit_delete_red'>
+                        </form>
                 </td>
             
                 
