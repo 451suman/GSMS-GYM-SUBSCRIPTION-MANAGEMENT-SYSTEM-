@@ -96,7 +96,8 @@ if(isset($_GET['verify'])){
     }
     
     $updateSql = "UPDATE enrollment SET verified = 'yes' WHERE eid = '$eid' ";
-    $result = $conn->query($updateSql);
+    $Uresult = $conn->query($updateSql);
+
     $sql = "SELECT * FROM enrollment WHERE eid='$eid'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
@@ -116,19 +117,19 @@ if(isset($_GET['verify'])){
             
             $duration = $crow['duration'];
             $package_price = $crow['package_price'];
-
             $cname = $crow['cname'];
             $package_name = $crow['package_name'];
+
             $currentDate = date("Y-m-d");
             $subscriptionPeriod = "+$duration month"; 
 
             $newDate = strtotime($subscriptionPeriod, strtotime($currentDate));
             $nnewDate = date("Y-m-d", $newDate);
 
-            // echo "Purchase Date: " . $currentDate . "<br>";
-            // echo "New Date: " . $nnewDate;
             $conn = new mysqli("localhost", "root", "", "fitness");
-
+            if ($conn->connect_error) {
+                die("Database connection error");
+            }
             $check_sql = "SELECT * FROM member_subscription_track WHERE mid='$mid' ";
             $check_r = $conn->query($check_sql);
 
@@ -232,22 +233,25 @@ if(isset($_GET['reset_verify'])){
                     JOIN enrollment ON enrollment.cid = category.cid
                     WHERE enrollment.cid = '$cid'";
             $r = $conn->query($sql);
-            $crow = $r->fetch_assoc();
+            if($r)
+            {
 
-            $duration = $crow['duration'];
-            $package_price = $crow['package_price'];
-            $cname = $crow['cname'];
-            $package_name = $crow['package_name'];
-        
-            $currentDate = date("Y-m-d");
-            $subscriptionPeriod = "+$duration month"; 
+                $crow = $r->fetch_assoc();
 
-            $newDate = strtotime($subscriptionPeriod, strtotime($currentDate));
-            $nnewDate = date("Y-m-d", $newDate);
-           
-            $conn = new mysqli("localhost", "root", "", "fitness");
-            $check_sql = "SELECT * FROM member_subscription_track WHERE mid='$mid' ";
-            $check_r = $conn->query($check_sql);
+                $duration = $crow['duration'];
+                $package_price = $crow['package_price'];
+                $cname = $crow['cname'];
+                $package_name = $crow['package_name'];
+            
+                $currentDate = date("Y-m-d");
+                $subscriptionPeriod = "+$duration month"; 
+
+                $newDate = strtotime($subscriptionPeriod, strtotime($currentDate));
+                $nnewDate = date("Y-m-d", $newDate);
+            
+                $conn = new mysqli("localhost", "root", "", "fitness");
+                $check_sql = "SELECT * FROM member_subscription_track WHERE mid='$mid' ";
+                $check_r = $conn->query($check_sql);
 
                     if ($check_r->num_rows > 0) 
                     {
@@ -322,6 +326,8 @@ if(isset($_GET['reset_verify'])){
                         echo '</script>';
                         
                     }
+            }
+
                     
 
         }   
