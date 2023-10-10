@@ -18,7 +18,8 @@ if (isset($_POST['change_password'])) {
     $row=$checkResult->fetch_assoc();
     if($oldpass==$row['password'])
     {
-        if (strlen($c_pass) !== 10) {
+
+        if (strlen($pass) !== 10 ) {
             echo '<script>';
             echo "Swal.fire({
                 icon: 'error',
@@ -126,7 +127,7 @@ if (isset($_POST['change_password'])) {
             <input type="password" name="oldpass" id=""style="width: 280px;" placeholder="Enter Old Password" required> <br>
             New Password:  <br> 
 
-            <input type="password" name="pass" id="" minlength="10" maxlength="10" placeholder="Only 10 characters" style="width: 280px;" required> <br>
+            <input type="password" name="pass" id="" minlength="10" placeholder="Only 10 characters" style="width: 280px;" required> <br>
 
             Confirm Password: <br>
 
