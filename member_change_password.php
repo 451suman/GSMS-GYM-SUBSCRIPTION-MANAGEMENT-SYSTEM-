@@ -22,18 +22,9 @@ if (isset($_GET['change_password'])) {
     $SQLcheckOldPass="SELECT * FROM member WHERE mid='$mid'";
     $checkOldPassResult=$conn->query($SQLcheckOldPass);
     $row= $checkOldPassResult->fetch_assoc();
+
     if($row['password']==$oldpass){
-                if (empty($pass)) {
-                    echo '<script>';
-                    echo "Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: 'Please enter a password.'
-                    }).then(function() {
-                        window.location = 'profile.php';
-                    });";
-                    echo '</script>';
-                } elseif (strlen($pass) !== 10) {
+              if (strlen($pass) !== 10) {
                     echo '<script>';
                     echo "Swal.fire({
                         icon: 'error',
@@ -46,7 +37,6 @@ if (isset($_GET['change_password'])) {
                     // echo 'window.location.href = "profile.php";';
                     echo '</script>';
                 } 
-                
                 elseif ($pass !== $c_pass) {
                     echo '<script>';
                     echo "Swal.fire({
@@ -140,7 +130,7 @@ if (isset($_GET['change_pass'])) {
 
             New Password:  <br> 
 
-            <input type="password" name="pass" id="" maxlength="10" minlength="10" placeholder="only 10 characters" style="width: 280px;" required> <br>
+            <input type="password" name="pass" id=""  minlength="10" placeholder="only 10 characters" style="width: 280px;" required> <br>
 
             Confirm Password: <br>
 

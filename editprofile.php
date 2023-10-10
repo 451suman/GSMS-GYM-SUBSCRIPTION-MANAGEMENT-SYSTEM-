@@ -22,7 +22,6 @@ if(isset($_POST['update']))
   
 } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $error['email'] = "Please enter a valid email address";
-    
 }
 else{
     // check dublicate email in database.
@@ -30,7 +29,14 @@ else{
     if ($conn->connect_error) {
         die("database connection error");
     }  
-            if($email!=$e)
+            $sql_em="SELECT * from member where mid = $id";
+            $r_em=$conn->query($sql_em);
+            if($r_em){
+                $row=$r_em->fetch_assoc();
+                $check_em=$row['email'];
+            }
+
+            if($email!=$check_em)
             {
                 $check_duplicate = $conn->query("SELECT email FROM member WHERE email = '$email'");
                 if ($check_duplicate->num_rows > 0) 
@@ -65,11 +71,8 @@ else{
         $file_name = $_FILES["image"]["name"];
         $file_size = $_FILES["image"]["size"];
         $file_tmp = $_FILES["image"]["tmp_name"];
-        $file_type = $_FILES["image"]["type"];
-        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-        $allowed_extensions = array("jpg", "jpeg", "png"); // Add any additional allowed extensions here
+        
 
-        if (in_array($file_ext, $allowed_extensions)) {
                 if ($file_size < 5242880) { // Max file size: 5MB (you can adjust this value)
 
                     $destination = "img/" . $file_name;
@@ -112,7 +115,8 @@ else{
                     });";
                     echo '</script>';
                 }
-                }else {
+                }
+                else {
                     echo '<script>';
                     echo "Swal.fire({
                         icon: 'error',
@@ -123,17 +127,7 @@ else{
                     });";
                     echo '</script>';
                 }
-        } else {
-            echo '<script>';
-            echo "Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'Invalid file format. Only JPG, JPEG, and PNG files are allowed.'
-            }).then(function() {
-                window.location = 'profile.php';
-            });";
-            echo '</script>';
-        }
+        
     }   
     else {
         $conn = new mysqli("localhost", "root", "", "fitness");
@@ -185,7 +179,6 @@ else{
                 $email = $row["email"];
             }
             ?>      
-
             <tr>
                 <td>Name</td>
                 <td><input type="text" name="name" maxlength="20" value="<?php echo $name; ?>" required></td>
@@ -204,7 +197,11 @@ else{
                     <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png"><br>
                 </td>
             </tr>
- 
+            <tr>
+                <td colspan="2"> 
+                    <p style="font-size: 15px;">Please upload Image in this format  <br> (jpg, jpeg, png).</p>
+                </td>
+            </tr>
             <tr>
                 <td colspan="2">
                     <input type="hidden" name="mid" value="<?php echo $mid; ?>">
