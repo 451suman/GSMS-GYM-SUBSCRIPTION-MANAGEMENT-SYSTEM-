@@ -28,7 +28,8 @@ include('layout_member/member_session.php');
         echo '</script>';
  }
 
-     if(isset($_GET['request_routine']))
+// if  request routine botton is clicked
+      if(isset($_GET['request_routine']))
      {
         $mid=$_GET['mid'];
         $conn = new mysqli("localhost", "root", "", "fitness");

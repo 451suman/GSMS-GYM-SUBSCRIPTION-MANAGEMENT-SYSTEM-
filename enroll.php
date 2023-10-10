@@ -15,13 +15,9 @@ if(isset($_POST['enroll_form'])){
                             $check_sql="select * from enrollment where mid='$mid'";
                             $check_r=$conn->query($check_sql);
                         if($check_r -> num_rows > 0)
-
                         {
                             $row=$check_r->fetch_assoc();
                             $eid=$row['eid'];
-
-                       
-
                             $sql="UPDATE enrollment SET mid = '$mid', cid = '$cid', verified='no' WHERE eid ='$eid'";
                             $r=$conn->query($sql);  
                             if($r){
