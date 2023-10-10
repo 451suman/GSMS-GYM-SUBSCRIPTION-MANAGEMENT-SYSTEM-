@@ -43,8 +43,6 @@ $result = $conn->query($sql);
 if($result->num_rows>0) {
                     if(isset($_GET['request_routine'])){
                         $mid=$_GET['mid'];
-
-                    
                     $conn = new mysqli("localhost", "root", "", "fitness");
                         if ($conn->connect_error) {
                             die("Connection error");
@@ -68,10 +66,7 @@ if($result->num_rows>0) {
                         // echo 'alert("Request Successful. Wait for Admin to Submit your routine.");';
                     //    echo 'window.location.href = "routine.php";';
                          echo '</script>';
-                    } 
-                        
-                        
-                        
+                    }  
                         } 
                         else {
                         $insert_sql="INSERT INTO routine (mid) VALUES ('$mid')";
@@ -92,17 +87,12 @@ if($result->num_rows>0) {
                         }
                         }
                     }
-                                    
          }
                 else{
-
                     echo '<script type="text/javascript">';
-
                     echo 'swal.fire({
                         icon: "success",
-                       
                        text: "No enrollment found. to access this page you have to enroll package first.",
-                      
                    }).then(function() {
                        window.location = "index.php";
                    });';

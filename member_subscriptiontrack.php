@@ -12,11 +12,8 @@ include('layout_member/member_session.php');
  }
  $csql = "SELECT * FROM member_subscription_track where mid='$id'" ;
  $r=$conn->query($csql);
- if($r->num_rows>0)
+ if($r->num_rows>0 == false)
  {
-
- }
- else{
     echo '<script type="text/javascript">';
     echo 'swal.fire({
         icon: "warning",
@@ -30,6 +27,7 @@ include('layout_member/member_session.php');
         // echo 'window.location.href = "index.php";';
         echo '</script>';
  }
+
 
 ?>
 
