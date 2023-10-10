@@ -16,27 +16,10 @@ if (isset($_POST["add_category"])) {
     $duration = $_POST["duration"];
     $price = $_POST["price"];
 
-    
-    $file_name = $_FILES["image"]["name"];
-    $file_size = $_FILES["image"]["size"];
-    $file_tmp = $_FILES["image"]["tmp_name"];
-    $file_type = $_FILES["image"]["type"];
-    $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+    $file_name = $_FILES["image"]["name"];       // store the name of the uploaded file
+    $file_size = $_FILES["image"]["size"];    //  store the size of the uploaded file
+    $file_tmp = $_FILES["image"]["tmp_name"];  //used to access the temporary filename of the uploaded file
 
-    $allowed_extensions = array("jpg", "jpeg", "png"); // Add any additional allowed extensions here
-
-    if( !$file_name = $_FILES["image"]["name"]){
-        echo '<script>';
-                    echo "Swal.fire({
-                        icon: 'error',
-                        title: 'Please Upload Image.',
-                    }).then(function() {
-                        window.location = 'category.php';
-                    });";
-                    echo '</script>';
-    }
-
-    elseif (in_array($file_ext, $allowed_extensions)) {
         if ($file_size < 5242880) { // Max file size: 5MB (you can adjust this value)
             $destination = "../img/" . $file_name;
 
@@ -89,16 +72,7 @@ if (isset($_POST["add_category"])) {
                             echo '</script>';
             // echo "File size exceeds the maximum limit.";
         }
-    } else {
-         echo '<script type="text/javascript">';
-                            echo 'swal.fire({
-                                icon: "error",
-                                title: "ERROR!",
-                                text: "Invalid file format. Only JPG, JPEG, and PNG files are allowed.",
-                            })';
-                            echo '</script>';
-        // echo "Invalid file format. Only JPG, JPEG, and PNG files are allowed.";
-    }
+    
 }
 ?>
 
@@ -107,7 +81,7 @@ if (isset($_POST["add_category"])) {
         <div><b>ADD CATEGORY</b></div>
         <div>
             <label for="pname">Package Name</label><br>
-            <input type="text" name="pname" maxlength="10"  class="transparent" id="name" ><br>
+            <input type="text" name="pname" maxlength="10"  class="transparent" id="name" required><br>
         </div>
 
         <div>

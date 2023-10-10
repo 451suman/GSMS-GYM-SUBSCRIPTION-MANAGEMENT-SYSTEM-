@@ -31,10 +31,9 @@ if (isset($_POST['update'])) {
             $file_name = $_FILES["image"]["name"];
             $file_size = $_FILES["image"]["size"];
             $file_tmp = $_FILES["image"]["tmp_name"];
-            $file_type = $_FILES["image"]["type"];
-            $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-            $allowed_extensions = array("jpg", "jpeg", "png"); // Add any additional allowed extensions here
-            if (in_array($file_ext, $allowed_extensions)) {
+           
+          
+            
                 if ($file_size < 5242880) { // Max file size: 5MB (you can adjust this value)
                     $destination = "../img/" . $file_name;
                     if (move_uploaded_file($file_tmp, $destination)) {
@@ -92,19 +91,7 @@ if (isset($_POST['update'])) {
                     // echo '<script type="text/javascript">   alert("File size exceeds the maximum limit."); 
                     //  window.location.href = "category.php; </script>';
                 }
-            } else {
-                echo '<script type="text/javascript">';
-                            echo 'swal.fire({
-                                icon: "error",
-                                title: "ERROR!",
-                                text: "Invalid file format. Only JPG, JPEG, and PNG files are allowed.",
-                            }).then(function() {
-                                window.location = "category.php";
-                            });';
-                            echo '</script>';
-                // echo '<script type="text/javascript">   alert("Invalid file format. Only JPG, JPEG, and PNG files are allowed."); 
-                //  window.location.href = "category.php; </script>';             
-            }
+            
         } else {
             // if Image is Not upload
             $sql = "UPDATE category SET package_name = '$pname', cname = '$cname', duration = '$duration',
@@ -161,19 +148,19 @@ if (isset($_GET['edit_category'])) {
         <div><b>EDIT CATEGORY</b></div>
         <div>
             <label for="pname">Package Name</label><br>
-            <input type="text" name="pname" maxlength="10" class="transparent" id="name" value="<?php echo $pname; ?>"><br>
+            <input type="text" name="pname" maxlength="10" class="transparent" id="name" value="<?php echo $pname; ?>" required><br>
         </div>
         <div>
             <label for="cname">Name</label><br>
-            <input type="text" name="cname" maxlength="10" class="transparent" id="cname" value="<?php echo $cname; ?>"><br>
+            <input type="text" name="cname" maxlength="10" class="transparent" id="cname" value="<?php echo $cname; ?>" required><br>
         </div>
         <div>
             <label for="duration">Duration</label><br>
-            <input type="number" name="duration" class="transparent" id="duration" value="<?php echo $duration; ?>"><br>
+            <input type="number" name="duration" class="transparent" id="duration" value="<?php echo $duration; ?>" required><br>
         </div>
         <div>
             <label for="price">Price</label><br>
-            <input type="number" name="price" class="transparent" id="price" value="<?php echo $price; ?>"><br>
+            <input type="number" name="price" class="transparent" id="price" value="<?php echo $price; ?>" required><br>
         </div>
         <div>
             <label for="tmage">Image</label><br>
