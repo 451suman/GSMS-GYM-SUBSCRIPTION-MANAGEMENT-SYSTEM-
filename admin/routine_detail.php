@@ -92,6 +92,7 @@ $id=$_GET["routine_id"];
    </div>
 
    <div>
+   
    <form action='edit_routine_form.php' method='get'>
    <input type='hidden' value='$id' name='routine_id' />
        <input type='submit' name='routine_update' value='update' class='detail_botton'>

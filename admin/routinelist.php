@@ -94,6 +94,7 @@ echo '</script>';
                         <td>$cname</td>
                         <td>$verify</td>
                         <td class='h-center'>
+                        
                         <form action='routine_detail.php' method='get'>
                         <input type='hidden' value='$rid' name='routine_id' />
                         <input type='submit' name='routine_detail' value='Update Routine' class='routine_btn'>

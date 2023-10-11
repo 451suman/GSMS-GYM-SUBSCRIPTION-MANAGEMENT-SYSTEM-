@@ -83,6 +83,8 @@ include('layout_member/member_session.php');
 <div id="routine_right">
 <div class="father_li_class">
     <div class="li_class">
+
+    <!-- request routine botton form -->
         <form action="routine.php" method="get">
             <input type="hidden" name="mid" id="" value="<?php  echo $id; ?>">  
             <input type="submit" name="request_routine" value="Request Routine" id="rr">
@@ -90,18 +92,19 @@ include('layout_member/member_session.php');
 
         <h1 style="text-align: center; color: #FFA559;">ROUTINE</h1>
         <div class="li2_class">
-            <?php
+           
+           <?php
             $conn = new mysqli("localhost", "root", "", "fitness");
             if ($conn->connect_error) {
                 die("Connection error");
             }
-            $i = 0;
+         
             $sql = "SELECT * FROM routine WHERE mid = '$id'";
             $r = $conn->query($sql);
             if($r ->num_rows>0){
 
                 while ($row = $r->fetch_assoc()) {
-                    $i++;
+                
                     $rid = $row['rid'];
                     $chest = $row['chest'];
                     $back = $row['back'];

@@ -36,7 +36,7 @@ if (isset($_POST['update'])) {
             
                 if ($file_size < 5242880) { // Max file size: 5MB (you can adjust this value)
                     $destination = "../img/" . $file_name;
-                    if (move_uploaded_file($file_tmp, $destination)) {
+                    if (move_uploaded_file($file_tmp, $destination)) {  
 
                         $sql = "UPDATE category SET package_name = '$pname', cname = '$cname', duration = '$duration',
                         package_price = '$price',image = '$file_name'  WHERE cid = $cid;";                        
@@ -94,8 +94,7 @@ if (isset($_POST['update'])) {
             
         } else {
             // if Image is Not upload
-            $sql = "UPDATE category SET package_name = '$pname', cname = '$cname', duration = '$duration',
-            package_price = '$price' WHERE cid = $cid;";                        
+            $sql = "UPDATE category SET package_name = '$pname', cname = '$cname', duration = '$duration', package_price = '$price' WHERE cid = $cid;";                        
             $r = $conn->query($sql);
             if ($r) {
                 echo '<script>';
