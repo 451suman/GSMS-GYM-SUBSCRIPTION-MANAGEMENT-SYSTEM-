@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2023 at 11:21 AM
+-- Generation Time: Oct 11, 2023 at 06:22 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`aid`, `name`, `email`, `password`, `phone`, `date`) VALUES
-(1, 'Super admin', 'admin@gmail.com', '7ece99e593ff5dd200e2b9233d9ba654', 9862170983, '2023-09-18 19:39:10');
+(1, 'Alexis Cabrera', 'admin@gmail.com', '7ece99e593ff5dd200e2b9233d9ba654', 1234567890, '2023-09-18 19:39:10');
 
 -- --------------------------------------------------------
 
@@ -63,10 +63,10 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cid`, `package_name`, `cname`, `duration`, `package_price`, `image`) VALUES
-(1, 'Iron', 'Gym', 1, 1000, '5575632.jpg'),
-(2, 'Gold', 'Gym', 6, 10000, '5575632.jpg'),
-(3, 'Diamond', 'Gym', 12, 12000, '5575632.jpg'),
-(5, 'Silver', 'Gym', 3, 3000, '5575632.jpg');
+(1, 'Gold', 'Gym', 10, 3000, '5575632.jpg'),
+(5, 'Silver', 'Gym', 3, 3000, '5575632.jpg'),
+(25, 'Mufutau Martinez', 'Imani Douglas', 75, 212, 'final-level 1.jpg'),
+(26, 'Valentine Parks', 'Allegra Hull', 27, 752, 'final-phisical dfd.jpg');
 
 -- --------------------------------------------------------
 
@@ -87,7 +87,7 @@ CREATE TABLE `enrollment` (
 --
 
 INSERT INTO `enrollment` (`eid`, `mid`, `cid`, `verified`, `edate`) VALUES
-(2, 1, 1, 'yes', '2023-09-24 20:09:07');
+(1, 1, 1, 'yes', '2023-10-11 08:47:37');
 
 -- --------------------------------------------------------
 
@@ -112,9 +112,7 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`mid`, `name`, `phone`, `email`, `password`, `date`, `image`, `m_otp`, `m_opt_expire_time`) VALUES
-(1, 'suman mushyakhwo', 1234567890, 'sumanmushyakhwo@gmail.com', '3a2a5ce900c7489c2112302b646bdef3', '2023-09-22 22:29:26', 'photo.png', '5d4e65501036804fe152135741a10d0a', '2023-09-22 23:42:40'),
-(3, 'Ainsley Reid', 1234567890, 'wehahajaqi@mailinator.com', '3a2a5ce900c7489c2112302b646bdef3', '2023-09-22 23:00:28', 'defaultuser.jpg', '0', '0000-00-00 00:00:00'),
-(4, 'Ursula Stephenson', 1234567890, 'cyboburafu@mailinator.com', '3a2a5ce900c7489c2112302b646bdef3', '2023-09-27 10:39:53', 'defaultuser.jpg', '', '0000-00-00 00:00:00');
+(1, 'Meredith Strong', 1234567890, 'sumanmushyakhwo@gmail.com', '3a2a5ce900c7489c2112302b646bdef3', '2023-10-11 08:44:19', 'defaultuser.jpg', '', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -135,7 +133,7 @@ CREATE TABLE `member_subscription_track` (
 --
 
 INSERT INTO `member_subscription_track` (`msid`, `cid`, `mid`, `renew_date`, `expiry_date`) VALUES
-(1, 1, 1, '2023-10-02 21:34:24', '2023-10-01');
+(1, 1, 1, '2023-10-11 08:47:44', '2023-11-11');
 
 -- --------------------------------------------------------
 
@@ -158,9 +156,7 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`pid`, `mid`, `cname`, `package_name`, `duration`, `price`, `date`) VALUES
-(1, 1, 'Gym', 'Iron', 1, 1000, '2023-09-22 22:36:08'),
-(2, 1, 'Gym', 'Iron', 1, 1000, '2023-09-24 20:09:24'),
-(3, 1, 'Gym', 'Iron', 1, 1000, '2023-10-02 21:22:00');
+(1, 1, 'Gym', 'Gold', 1, 3000, '2023-10-11 08:47:44');
 
 -- --------------------------------------------------------
 
@@ -186,7 +182,7 @@ CREATE TABLE `routine` (
 --
 
 INSERT INTO `routine` (`rid`, `mid`, `chest`, `back`, `soulder`, `biseps`, `triceps`, `leg`, `abs`, `verify`) VALUES
-(1, 1, ' Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', ' Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', ' Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', ' Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', ' Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', ' Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', ' Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'no');
+(1, 1, 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'no');
 
 --
 -- Indexes for dumped tables
@@ -211,7 +207,7 @@ ALTER TABLE `category`
 ALTER TABLE `enrollment`
   ADD PRIMARY KEY (`eid`),
   ADD KEY `mid` (`mid`),
-  ADD KEY `enrollment_ibfk_3` (`cid`);
+  ADD KEY `cid` (`cid`);
 
 --
 -- Indexes for table `member`
@@ -225,13 +221,15 @@ ALTER TABLE `member`
 --
 ALTER TABLE `member_subscription_track`
   ADD PRIMARY KEY (`msid`),
-  ADD UNIQUE KEY `mid` (`mid`);
+  ADD UNIQUE KEY `mid` (`mid`),
+  ADD KEY `cid` (`cid`);
 
 --
 -- Indexes for table `payment`
 --
 ALTER TABLE `payment`
-  ADD PRIMARY KEY (`pid`);
+  ADD PRIMARY KEY (`pid`),
+  ADD KEY `mid` (`mid`);
 
 --
 -- Indexes for table `routine`
@@ -254,19 +252,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `member_subscription_track`
@@ -278,7 +276,7 @@ ALTER TABLE `member_subscription_track`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `routine`
@@ -294,13 +292,21 @@ ALTER TABLE `routine`
 -- Constraints for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  ADD CONSTRAINT `enrollment_ibfk_2` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `enrollment_ibfk_2` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `enrollment_ibfk_3` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`);
 
 --
 -- Constraints for table `member_subscription_track`
 --
 ALTER TABLE `member_subscription_track`
-  ADD CONSTRAINT `member_subscription_track_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `member_subscription_track_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `member_subscription_track_ibfk_2` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`);
+
+--
+-- Constraints for table `payment`
+--
+ALTER TABLE `payment`
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`);
 
 --
 -- Constraints for table `routine`
