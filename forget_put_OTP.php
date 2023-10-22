@@ -15,6 +15,7 @@ if(isset($_POST['searchs']))
         if($r-> num_rows>0 && $row=$r->fetch_assoc())
         {
             $mid=$row['mid'];
+            $name=$row['name'];
 
             date_default_timezone_set('Asia/Kathmandu');
             // $otp_expiryy=date('y-m-d h:i:s');
@@ -35,7 +36,9 @@ if(isset($_POST['searchs']))
 
                     $to = "$email"; // Recipient's email address
                     $subject = "GYM Subscription MS"; // Subject of your email
-                    $message = "Hello, valued member! Your one-time password (OTP) is $otp. Please note that this OTP is valid until $otp_expiry."; // Message to be sent
+                    $message = "Good day there, $name! Your one-time password (OTP) is $otp. 
+                    Remember that this OTP is only valid until $otp_expiry.  From GSMS
+                    "; // Message to be sent
                     
                     $headers = "From: orozmush@gmail.com\r\n";
                     $headers .= "Reply-To: orozmush@gmail.com\r\n";
