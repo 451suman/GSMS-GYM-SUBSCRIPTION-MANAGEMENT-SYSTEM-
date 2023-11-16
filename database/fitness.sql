@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2023 at 06:22 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Nov 16, 2023 at 11:45 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,10 +63,7 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cid`, `package_name`, `cname`, `duration`, `package_price`, `image`) VALUES
-(1, 'Gold', 'Gym', 10, 3000, '5575632.jpg'),
-(5, 'Silver', 'Gym', 3, 3000, '5575632.jpg'),
-(25, 'Mufutau Martinez', 'Imani Douglas', 75, 212, 'final-level 1.jpg'),
-(26, 'Valentine Parks', 'Allegra Hull', 27, 752, 'final-phisical dfd.jpg');
+(4, 'Jennifer Hubbard', 'Ingrid Jones', 34, 77, 'wallpaperflare.com_wallpaper.jpg');
 
 -- --------------------------------------------------------
 
@@ -81,13 +78,6 @@ CREATE TABLE `enrollment` (
   `verified` varchar(10) NOT NULL DEFAULT 'no',
   `edate` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `enrollment`
---
-
-INSERT INTO `enrollment` (`eid`, `mid`, `cid`, `verified`, `edate`) VALUES
-(1, 1, 1, 'yes', '2023-10-11 08:47:37');
 
 -- --------------------------------------------------------
 
@@ -107,13 +97,6 @@ CREATE TABLE `member` (
   `m_opt_expire_time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `member`
---
-
-INSERT INTO `member` (`mid`, `name`, `phone`, `email`, `password`, `date`, `image`, `m_otp`, `m_opt_expire_time`) VALUES
-(1, 'Meredith Strong', 1234567890, 'sumanmushyakhwo@gmail.com', '3a2a5ce900c7489c2112302b646bdef3', '2023-10-11 08:44:19', 'defaultuser.jpg', '', '0000-00-00 00:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -122,18 +105,10 @@ INSERT INTO `member` (`mid`, `name`, `phone`, `email`, `password`, `date`, `imag
 
 CREATE TABLE `member_subscription_track` (
   `msid` int(11) NOT NULL,
-  `cid` int(11) NOT NULL,
   `mid` int(11) NOT NULL,
   `renew_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `expiry_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `member_subscription_track`
---
-
-INSERT INTO `member_subscription_track` (`msid`, `cid`, `mid`, `renew_date`, `expiry_date`) VALUES
-(1, 1, 1, '2023-10-11 08:47:44', '2023-11-11');
 
 -- --------------------------------------------------------
 
@@ -150,13 +125,6 @@ CREATE TABLE `payment` (
   `price` int(11) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `payment`
---
-
-INSERT INTO `payment` (`pid`, `mid`, `cname`, `package_name`, `duration`, `price`, `date`) VALUES
-(1, 1, 'Gym', 'Gold', 1, 3000, '2023-10-11 08:47:44');
 
 -- --------------------------------------------------------
 
@@ -176,13 +144,6 @@ CREATE TABLE `routine` (
   `abs` varchar(500) DEFAULT NULL,
   `verify` varchar(4) NOT NULL DEFAULT 'no'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `routine`
---
-
-INSERT INTO `routine` (`rid`, `mid`, `chest`, `back`, `soulder`, `biseps`, `triceps`, `leg`, `abs`, `verify`) VALUES
-(1, 1, 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'Squats, Deadlifts, Bench Press, Pull-Ups/Chin-Ups, Push-Ups, Lunges,Shoulder Press,Bent-Over Rows, Bicep Curls,Plank,Tricep Dips.', 'no');
 
 --
 -- Indexes for dumped tables
@@ -221,8 +182,7 @@ ALTER TABLE `member`
 --
 ALTER TABLE `member_subscription_track`
   ADD PRIMARY KEY (`msid`),
-  ADD UNIQUE KEY `mid` (`mid`),
-  ADD KEY `cid` (`cid`);
+  ADD UNIQUE KEY `mid` (`mid`);
 
 --
 -- Indexes for table `payment`
@@ -252,31 +212,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `member_subscription_track`
 --
 ALTER TABLE `member_subscription_track`
-  MODIFY `msid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `msid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `routine`
@@ -293,20 +253,19 @@ ALTER TABLE `routine`
 --
 ALTER TABLE `enrollment`
   ADD CONSTRAINT `enrollment_ibfk_2` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `enrollment_ibfk_3` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`);
+  ADD CONSTRAINT `enrollment_ibfk_3` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `member_subscription_track`
 --
 ALTER TABLE `member_subscription_track`
-  ADD CONSTRAINT `member_subscription_track_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `member_subscription_track_ibfk_2` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`);
+  ADD CONSTRAINT `member_subscription_track_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `payment`
 --
 ALTER TABLE `payment`
-  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`);
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `routine`
