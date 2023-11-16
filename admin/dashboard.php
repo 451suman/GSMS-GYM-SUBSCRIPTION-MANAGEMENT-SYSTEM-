@@ -171,7 +171,7 @@ if(isset($_GET['verify'])){
                         } 
                     else {
                         // if new member enrolleed
-                            $msql = "INSERT INTO member_subscription_track (mid,cid, renew_date, expiry_date) VALUES ($mid,$cid, current_timestamp(), '$nnewDate') ";
+                            $msql = "INSERT INTO member_subscription_track (mid, renew_date, expiry_date) VALUES ($mid, current_timestamp(), '$nnewDate') ";
                             $re = $conn->query($msql);
                             $paymentsql="INSERT INTO payment (mid, cname, package_name, duration, price, date)
                                  VALUES ( '$mid', '$cname', '$package_name', '$duration', '$package_price', current_timestamp())";

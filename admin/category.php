@@ -5,7 +5,7 @@ include('layout/adminsession.php');
 
 ?>
 
-
+<div id="right"> 
 <?php
 
 
@@ -15,6 +15,9 @@ include('layout/adminsession.php');
 if(isset($_GET['delete_category']))
 {
         $id=$_GET['category_id'];
+
+        // echo $id;
+        // die();
         $conn = new mysqli("localhost","root","","fitness");
         if($conn->connect_error)
         {
@@ -37,7 +40,7 @@ if(isset($_GET['delete_category']))
         }
 }
 ?>
-<div id="right"> 
+
 <link rel="stylesheet" href="../css/tableDecorate.css">
 
 
