@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2023 at 11:45 AM
+-- Generation Time: Nov 17, 2023 at 04:58 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`aid`, `name`, `email`, `password`, `phone`, `date`) VALUES
-(1, 'Alexis Cabrera', 'admin@gmail.com', '7ece99e593ff5dd200e2b9233d9ba654', 1234567890, '2023-09-18 19:39:10');
+(1, 'Rebecca Burch', 'zaseqeveq@mailinator.com', '87e87639856f48f3de231332b4fd3788', 1234567890, '2023-11-17 20:13:44');
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cid`, `package_name`, `cname`, `duration`, `package_price`, `image`) VALUES
-(4, 'Jennifer Hubbard', 'Ingrid Jones', 34, 77, 'wallpaperflare.com_wallpaper.jpg');
+(2, 'Oce1231231', 'Cheye21312', 1, 1000, 'young-man-sportswear-exercise-class-gym (1).jpg');
 
 -- --------------------------------------------------------
 
@@ -79,6 +79,13 @@ CREATE TABLE `enrollment` (
   `edate` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `enrollment`
+--
+
+INSERT INTO `enrollment` (`eid`, `mid`, `cid`, `verified`, `edate`) VALUES
+(1, 4, 2, 'yes', '2023-11-17 20:22:19');
+
 -- --------------------------------------------------------
 
 --
@@ -90,12 +97,19 @@ CREATE TABLE `member` (
   `name` varchar(21) NOT NULL,
   `phone` bigint(10) NOT NULL,
   `email` varchar(31) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` varchar(500) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `image` varchar(1100) DEFAULT 'defaultuser.jpg',
   `m_otp` varchar(225) NOT NULL,
   `m_opt_expire_time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `member`
+--
+
+INSERT INTO `member` (`mid`, `name`, `phone`, `email`, `password`, `date`, `image`, `m_otp`, `m_opt_expire_time`) VALUES
+(4, 'Simone Huff', 1234567890, 'sumanmushyakhwo@gmail.com', '3a2a5ce900c7489c2112302b646bdef3', '2023-11-16 16:58:18', '120731998.png', 'f3bc6d2f1bf7b2ac8f1e341bb09d0242', '2023-11-16 17:26:18');
 
 -- --------------------------------------------------------
 
@@ -109,6 +123,13 @@ CREATE TABLE `member_subscription_track` (
   `renew_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `expiry_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `member_subscription_track`
+--
+
+INSERT INTO `member_subscription_track` (`msid`, `mid`, `renew_date`, `expiry_date`) VALUES
+(1, 4, '2023-11-17 20:24:50', '2023-12-17');
 
 -- --------------------------------------------------------
 
@@ -125,6 +146,16 @@ CREATE TABLE `payment` (
   `price` int(11) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`pid`, `mid`, `cname`, `package_name`, `duration`, `price`, `date`) VALUES
+(1, 4, 'Cheye21312', 'Oce1231231', 1, 1000, '2023-11-17 20:22:33'),
+(2, 4, 'Cheye21312', 'Oce1231231', 1, 1000, '2023-11-17 20:24:16'),
+(3, 4, 'Cheye21312', 'Oce1231231', 1, 1000, '2023-11-17 20:24:38'),
+(4, 4, 'Cheye21312', 'Oce1231231', 1, 1000, '2023-11-17 20:24:50');
 
 -- --------------------------------------------------------
 
@@ -144,6 +175,13 @@ CREATE TABLE `routine` (
   `abs` varchar(500) DEFAULT NULL,
   `verify` varchar(4) NOT NULL DEFAULT 'no'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `routine`
+--
+
+INSERT INTO `routine` (`rid`, `mid`, `chest`, `back`, `soulder`, `biseps`, `triceps`, `leg`, `abs`, `verify`) VALUES
+(1, 4, 'Quos asperiores at i', 'Accusamus velit lau', 'Dolores voluptatem i', 'Veniam labore deser', 'Similique est a volu', 'Mollitia est quia r', 'Accusantium totam ad', 'yes');
 
 --
 -- Indexes for dumped tables
@@ -206,37 +244,37 @@ ALTER TABLE `routine`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `aid` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `aid` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `member_subscription_track`
 --
 ALTER TABLE `member_subscription_track`
-  MODIFY `msid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `msid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `routine`
