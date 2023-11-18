@@ -6,87 +6,81 @@ include('layout/adminsession.php');
 
 <!-- check remaining days  -->
 <?php
-if(isset($_GET['remaining_days']))
-{
-            $currentDate = date("Y-m-d");
-            $conn = new mysqli("localhost", "root", "", "fitness");
-            if ($conn->connect_error) {
-                die("Database connection error");
-            }
-            $mid=$_GET['mid'];
-          
-            $currentDate = date("Y-m-d");
-            $sql="select * from member_subscription_track where mid='$mid'";
-            $r=$conn->query($sql);
-            if($r-> num_rows >0)
-            {
-                $row=$r->fetch_assoc();
-                $expiry_date=$row["expiry_date"];
-                $date = date('F j, Y');
-                // Convert the expiry date and today's date to Unix timestamps
-            $expiry_timestamp = strtotime($expiry_date);
-            $today_timestamp = strtotime($date);
-            // Calculate the difference in seconds
-            $difference = $expiry_timestamp - $today_timestamp;
-            // Convert the difference to days
-            $days_remaining = round($difference / (60 * 60 * 24));
-            echo '<script type="text/javascript">';
-            // assignng days remaining in var remainingdays  in JS code
-            echo 'var remainingDays = ' . $days_remaining . ';';
-            // display VAr remainig days
-            echo 'swal.fire({
+if (isset($_GET['remaining_days'])) {
+    $currentDate = date("Y-m-d");
+    $conn = new mysqli("localhost", "root", "", "fitness");
+    if ($conn->connect_error) {
+        die("Database connection error");
+    }
+    $mid = $_GET['mid'];
+
+    $currentDate = date("Y-m-d");
+    $sql = "select * from member_subscription_track where mid='$mid'";
+    $r = $conn->query($sql);
+    if ($r->num_rows > 0) {
+        $row = $r->fetch_assoc();
+        $expiry_date = $row["expiry_date"];
+        $date = date('F j, Y');
+        // Convert the expiry date and today's date to Unix timestamps
+        $expiry_timestamp = strtotime($expiry_date);
+        $today_timestamp = strtotime($date);
+        // Calculate the difference in seconds
+        $difference = $expiry_timestamp - $today_timestamp;
+        // Convert the difference to days
+        $days_remaining = round($difference / (60 * 60 * 24));
+        echo '<script type="text/javascript">';
+        // assignng days remaining in var remainingdays  in JS code
+        echo 'var remainingDays = ' . $days_remaining . ';';
+        // display VAr remainig days
+        echo 'swal.fire({
               title: "Remaining days: " + remainingDays              
            }).then(function() {
                window.location = "dashboard.php";
            });';
-            // echo 'alert("Remaining days: " + remainingDays);';
-            // echo 'window.location.href = "dashboard.php";';
-            echo '</script>';
-            }
-            else
-            {
-                echo '<script type="text/javascript">';
-                echo 'swal.fire({
+        // echo 'alert("Remaining days: " + remainingDays);';
+        // echo 'window.location.href = "dashboard.php";';
+        echo '</script>';
+    } else {
+        echo '<script type="text/javascript">';
+        echo 'swal.fire({
                     title:" New Member"        
                  }).then(function() {
                      window.location = "dashboard.php";
                  });';
-                echo '</script>';
-            }
-        }
+        echo '</script>';
+    }
+}
 ?>
 
 <!-- reject verification -->
 <?php
-if(isset($_GET['reject_verify'])){
-    $eid=$_GET["enroll_id"];
+if (isset($_GET['reject_verify'])) {
+    $eid = $_GET["enroll_id"];
     $conn = new mysqli("localhost", "root", "", "fitness");
-            if ($conn->connect_error) {
-                die("Database connection error");
-            }
-            $sql="UPDATE enrollment SET verified = 'rejected' WHERE eid = '$eid' ";
-            $result = $conn->query($sql);
-            if($result)
-            {
-                echo '<script type="text/javascript">';
-                                  echo 'Swal.fire({
+    if ($conn->connect_error) {
+        die("Database connection error");
+    }
+    $sql = "UPDATE enrollment SET verified = 'rejected' WHERE eid = '$eid' ";
+    $result = $conn->query($sql);
+    if ($result) {
+        echo '<script type="text/javascript">';
+        echo 'Swal.fire({
                                     icon: "warning",
                                       title: "Rejected"
                                   }).then(function() {
                                       window.location = "dashboard.php";
                                   });';
-                                  echo '</script>';
-            }
-            else{
-                echo '<script type="text/javascript">';
+        echo '</script>';
+    } else {
+        echo '<script type="text/javascript">';
         echo 'alert("delete error");';
         echo '</script>';
-            }
+    }
 }
 ?>
 <!-- ---------------------------------Verify-------------------------- -->
 <?php
-if(isset($_GET['verify'])){
+if (isset($_GET['verify'])) {
     $eid = $_GET["enroll_id"];
     $mid = $_GET['mid'];
     $cid = $_GET['cid'];
@@ -94,7 +88,7 @@ if(isset($_GET['verify'])){
     if ($conn->connect_error) {
         die("Database connection error");
     }
-    
+
     $updateSql = "UPDATE enrollment SET verified = 'yes' WHERE eid = '$eid' ";
     $Uresult = $conn->query($updateSql);
 
@@ -103,25 +97,25 @@ if(isset($_GET['verify'])){
     $row = $result->fetch_assoc();
     $verified = $row['verified'];
     $enroll = $row['edate'];
-    $cid=$row['cid'];
-    $mid=$row['mid'];
-    
-    if($result){    
-        if($verified == 'yes'){
+    $cid = $row['cid'];
+    $mid = $row['mid'];
+
+    if ($result) {
+        if ($verified == 'yes') {
             $sql = "SELECT enrollment.cid, category.duration, category.cid ,category.package_price, category.cname,	category.package_name
                     FROM category
                     JOIN enrollment ON enrollment.cid = category.cid
                     WHERE enrollment.cid = '$cid'";
             $r = $conn->query($sql);
             $crow = $r->fetch_assoc();
-            
+
             $duration = $crow['duration'];
             $package_price = $crow['package_price'];
             $cname = $crow['cname'];
             $package_name = $crow['package_name'];
 
-            $currentDate = date("Y-m-d");
-            $subscriptionPeriod = "+$duration month"; 
+            $currentDate = date("Y-m-d"); 
+            $subscriptionPeriod = "+$duration month";
 
             $newDate = strtotime($subscriptionPeriod, strtotime($currentDate));
             $nnewDate = date("Y-m-d", $newDate);
@@ -133,81 +127,79 @@ if(isset($_GET['verify'])){
             $check_sql = "SELECT * FROM member_subscription_track WHERE mid='$mid' ";
             $check_r = $conn->query($check_sql);
 
-                    if ($check_r->num_rows > 0) {
-                            $row=$check_r->fetch_assoc();
-                            $msid=$row['msid'];
-                            $mid=$row['mid'];
-                            $expiry_date=$row['expiry_date'];
-                        
-                            $update_date = date('Y-m-d', strtotime($subscriptionPeriod, strtotime($expiry_date)));
-                    
-                            $update_sql=" UPDATE member_subscription_track SET expiry_date = '$update_date' WHERE msid = '$msid ' and mid='$mid' ";
-                            $update_r=$conn->query($update_sql);
+            if ($check_r->num_rows > 0) {
+                $row = $check_r->fetch_assoc();
+                $msid = $row['msid'];
+                $mid = $row['mid'];
+                $expiry_date = $row['expiry_date'];
 
-                            $paymentsql="INSERT INTO payment (mid, cname, package_name, duration, price, date)
+                $update_date = date('Y-m-d', strtotime($subscriptionPeriod, strtotime($expiry_date)));
+
+                $update_sql = " UPDATE member_subscription_track SET expiry_date = '$update_date' WHERE msid = '$msid ' and mid='$mid' ";
+                $update_r = $conn->query($update_sql);
+
+                $paymentsql = "INSERT INTO payment (mid, cname, package_name, duration, price, date)
                             VALUES ( '$mid', '$cname', '$package_name', '$duration', '$package_price', current_timestamp())";
-                             $r=$conn->query($paymentsql);
-                           
-                            if ($update_r && $r) {
-                                  echo '<script type="text/javascript">';
-                                  echo 'Swal.fire({
+                $r = $conn->query($paymentsql);
+
+                if ($update_r && $r) {
+                    echo '<script type="text/javascript">';
+                    echo 'Swal.fire({
                                     icon: "success",
                                       title: "Member Verify successful & Update expiry date successfully"
                                   }).then(function() {
                                       window.location = "dashboard.php";
                                   });';
-                                  echo '</script>';
-                            } 
-                            else {
-                                    echo '<script type="text/javascript">   ';
-                                    echo 'Swal.fire({
+                    echo '</script>';
+                } else {
+                    echo '<script type="text/javascript">   ';
+                    echo 'Swal.fire({
                                         icon: "error",
                                           title: "Error updating subscription. "
                                       }).then(function() {
                                           window.location = "dashboard.php";
                                       });';
-                                    echo' </script>';
-                            }
-                        } 
-                    else {
-                        // if new member enrolleed
-                            $msql = "INSERT INTO member_subscription_track (mid, renew_date, expiry_date) VALUES ($mid, current_timestamp(), '$nnewDate') ";
-                            $re = $conn->query($msql);
-                            $paymentsql="INSERT INTO payment (mid, cname, package_name, duration, price, date)
+                    echo ' </script>';
+                }
+            } 
+            else {
+                // if new member enrolleed
+                $msql = "INSERT INTO member_subscription_track (mid, renew_date, expiry_date) VALUES ($mid, current_timestamp(), '$nnewDate') ";
+                $re = $conn->query($msql);
+                $paymentsql = "INSERT INTO payment (mid, cname, package_name, duration, price, date)
                                  VALUES ( '$mid', '$cname', '$package_name', '$duration', '$package_price', current_timestamp())";
-                                  $r=$conn->query($paymentsql);
-                            if ($re && $r){
-                                echo '<script type="text/javascript">';
-                                echo 'Swal.fire({
+                $r = $conn->query($paymentsql);
+                if ($re && $r) {
+                    echo '<script type="text/javascript">';
+                    echo 'Swal.fire({
                                     icon: "success",
                                       title: "New Member Verify successful & Insert New Member expiry date uccessfully."
                                   }).then(function() {
                                       window.location = "dashboard.php";
                                   });';
-                                // echo 'alert("New Member Verify successful & Insert New Member expiry date uccessfully.");';
-                                // echo 'window.location.href = "dashboard.php";';
-                                echo '</script>';
-                            }
-                            else {
-                                echo '<script type="text/javascript">   ';
-                                echo 'Swal.fire({
+                    // echo 'alert("New Member Verify successful & Insert New Member expiry date uccessfully.");';
+                    // echo 'window.location.href = "dashboard.php";';
+                    echo '</script>';
+                } else {
+                    echo '<script type="text/javascript">   ';
+                    echo 'Swal.fire({
                                     icon: "error",
                                       title: "Error updating subscription. "
                                   }).then(function() {
                                       window.location = "dashboard.php";
                                   });';
-                                echo' </script>';
-                        }
-                    }
-        }   
-  }
+                    echo ' </script>';
+                }
+            }
+        }
+    }
 }
 ?>
 <!-- --------------------------------Reset & Verify------------------------------------------------------->
 
 
 <?php
-if(isset($_GET['reset_verify'])){
+if (isset($_GET['reset_verify'])) {
     $eid = $_GET["enroll_id"];
     $mid = $_GET['mid'];
     $cid = $_GET['cid'];
@@ -215,7 +207,7 @@ if(isset($_GET['reset_verify'])){
     if ($conn->connect_error) {
         die("Database connection error");
     }
-    
+
     $updateSql = "UPDATE enrollment SET verified = 'yes' WHERE eid = '$eid' ";
     $result = $conn->query($updateSql);
     $sql = "SELECT * FROM enrollment WHERE eid='$eid'";
@@ -223,18 +215,17 @@ if(isset($_GET['reset_verify'])){
     $row = $result->fetch_assoc();
     $verified = $row['verified'];
     $enroll = $row['edate'];
-    $cid=$row['cid'];
-    $mid=$row['mid'];
-    
-    if($result){    
-        if($verified == 'yes'){
+    $cid = $row['cid'];
+    $mid = $row['mid'];
+
+    if ($result) {
+        if ($verified == 'yes') {
             $sql = "SELECT enrollment.cid, category.duration, category.cid, category.package_price, category.cname,	category.package_name
                     FROM category
                     JOIN enrollment ON enrollment.cid = category.cid
                     WHERE enrollment.cid = '$cid'";
             $r = $conn->query($sql);
-            if($r)
-            {
+            if ($r) {
 
                 $crow = $r->fetch_assoc();
 
@@ -242,96 +233,92 @@ if(isset($_GET['reset_verify'])){
                 $package_price = $crow['package_price'];
                 $cname = $crow['cname'];
                 $package_name = $crow['package_name'];
-            
+
                 $currentDate = date("Y-m-d");
-                $subscriptionPeriod = "+$duration month"; 
+                $subscriptionPeriod = "+$duration month";
 
                 $newDate = strtotime($subscriptionPeriod, strtotime($currentDate));
                 $nnewDate = date("Y-m-d", $newDate);
-            
+
                 $conn = new mysqli("localhost", "root", "", "fitness");
                 $check_sql = "SELECT * FROM member_subscription_track WHERE mid='$mid' ";
                 $check_r = $conn->query($check_sql);
 
-                    if ($check_r->num_rows > 0) 
-                    {
+                if ($check_r->num_rows > 0) {
 
-                        $row=$check_r->fetch_assoc();
-                        $msid=$row['msid'];
-                        $mid=$row['mid'];
-                        $expiry_date=$row['expiry_date'];
+                    $row = $check_r->fetch_assoc();
+                    $msid = $row['msid'];
+                    $mid = $row['mid'];
+                    $expiry_date = $row['expiry_date'];
 
-                        $currentTimestamp = strtotime($currentDate);
-                        $expiryTimestamp = strtotime($expiry_date);
+                    $currentTimestamp = strtotime($currentDate);
+                    $expiryTimestamp = strtotime($expiry_date);
 
-                        if ($expiryTimestamp < $currentTimestamp) {
-                                // $expiry_date is less than $currentDate
-                                // Add your code here for the condition where expiry_date is less than currentDate
-                                $update_date = date('Y-m-d', strtotime($subscriptionPeriod, strtotime($currentDate)));
-                                // SQL for ipdate in DB
-                                $update_sql=" UPDATE member_subscription_track SET expiry_date = '$update_date' WHERE msid = '$msid ' and mid='$mid' ";
-                                $update_r=$conn->query($update_sql);
+                    if ($expiryTimestamp < $currentTimestamp) {
+                        // $expiry_date is less than $currentDate
+                        // Add your code here for the condition where expiry_date is less than currentDate
+                        $update_date = date('Y-m-d', strtotime($subscriptionPeriod, strtotime($currentDate)));
+                        // SQL for ipdate in DB
+                        $update_sql = " UPDATE member_subscription_track SET expiry_date = '$update_date' WHERE msid = '$msid ' and mid='$mid' ";
+                        $update_r = $conn->query($update_sql);
 
-                                $paymentsql="INSERT INTO payment (mid, cname, package_name, duration, price, date)
+                        $paymentsql = "INSERT INTO payment (mid, cname, package_name, duration, price, date)
                                     VALUES ( '$mid', '$cname', '$package_name', '$duration', '$package_price', current_timestamp())";
-                                     $r=$conn->query($paymentsql);
+                        $r = $conn->query($paymentsql);
 
-                                if ($update_r && $r) {
-                                    echo '<script type="text/javascript">';
-                                    echo 'Swal.fire({
+                        if ($update_r && $r) {
+                            echo '<script type="text/javascript">';
+                            echo 'Swal.fire({
                                         icon: "success",
                                           title: "Reset & Verify (updating subscription) Successfuly & Update expiry date successfully. "
                                       }).then(function() {
                                           window.location = "dashboard.php";
                                       });';
-                                    echo '</script>';
-                                }
-                                else {
-                                    echo '<script type="text/javascript">';
-                                    echo 'Swal.fire({
+                            echo '</script>';
+                        } else {
+                            echo '<script type="text/javascript">';
+                            echo 'Swal.fire({
                                         icon: "error",
                                           title: "Error updating subscription. "
                                       }).then(function() {
                                           window.location = "dashboard.php";
                                       });';
-                                    echo '</script>';                                   
-                                }      
-                        }   
-                        else {
-                            $updateSql = "UPDATE enrollment SET verified = 'no' WHERE eid = '$eid' ";
-                            $result = $conn->query($updateSql);
-                            echo '<script type="text/javascript">';
-                            echo 'Swal.fire({
+                            echo '</script>';
+                        }
+                    } else {
+                        $updateSql = "UPDATE enrollment SET verified = 'no' WHERE eid = '$eid' ";
+                        $result = $conn->query($updateSql);
+                        echo '<script type="text/javascript">';
+                        echo 'Swal.fire({
                                 icon: "error",
                                   title: "Error Updating Subscription. Because Expiry date is not expired. "
                               }).then(function() {
                                   window.location = "dashboard.php";
                               });';
-                            echo '</script>';
-                            
-                        }
+                        echo '</script>';
 
-                    } 
-                    else {
-                        $updateSql = "UPDATE enrollment SET verified = 'no' WHERE eid = '$eid' ";
-                        $result = $conn->query($updateSql);
-                        echo '<script type="text/javascript">';
-                        echo 'Swal.fire({
+                    }
+
+                } else {
+                    $updateSql = "UPDATE enrollment SET verified = 'no' WHERE eid = '$eid' ";
+                    $result = $conn->query($updateSql);
+                    echo '<script type="text/javascript">';
+                    echo 'Swal.fire({
                             icon: "error",
                               title: "Error Updating Subscription( New Member) "
                           }).then(function() {
                               window.location = "dashboard.php";
                           });';
-                      
-                        echo '</script>';
-                        
-                    }
+
+                    echo '</script>';
+
+                }
             }
 
-                    
 
-        }   
-  }
+
+        }
+    }
 }
 ?>
 
@@ -344,12 +331,12 @@ if(isset($_GET['reset_verify'])){
 
 
 <div id="right">
-<link rel="stylesheet" href="../css/tableDecorate.css">
+    <link rel="stylesheet" href="../css/tableDecorate.css">
 
     <div class="table_class">
         <table class="membership">
             <tr>
-            
+
                 <td colspan="11">
                     <h1 class="center">DASHBOARD</h1>
                 </td>
@@ -357,15 +344,15 @@ if(isset($_GET['reset_verify'])){
             <tr>
                 <th width=5%;>SN</th>
                 <th width=10% ;>Name</th>
-                <th width= 10%;>Phone</th>
+                <th width=10%;>Phone</th>
                 <th width=20% ;>Email</th>
-                <th width=5% ;>Package Name</th>  
-                <th width= 5%;>Subscription Category</th>
+                <th width=5% ;>Package Name</th>
+                <th width=5%;>Subscription Category</th>
                 <th width=5% ;>Month</th>
-                <th width= 15%;>Enroll Date</th>
-                <th width= 5%;>Remaining days</th>
-                <th width= 10%;>Verification</th>
-                <th width= 10%;>Action</th>
+                <th width=15%;>Enroll Date</th>
+                <th width=5%;>Remaining days</th>
+                <th width=10%;>Verification</th>
+                <th width=10%;>Action</th>
             </tr>
             <?php
             $conn = new mysqli("localhost", "root", "", "fitness");
@@ -381,23 +368,23 @@ if(isset($_GET['reset_verify'])){
 
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
-                    $i = 0;
-                    while ($row = $result->fetch_assoc()) {
-                        $i++;
-                        $mid = $row["mid"];
-                        $name = $row["name"];
-                        $phone = $row["phone"];
-                        $email = $row["email"];
-                        $cid = $row["cid"];
-                        $eid = $row["eid"];
-                        $cname = $row["cname"];
+                $i = 0;
+                while ($row = $result->fetch_assoc()) {
+                    $i++;
+                    $mid = $row["mid"];
+                    $name = $row["name"];
+                    $phone = $row["phone"];
+                    $email = $row["email"];
+                    $cid = $row["cid"];
+                    $eid = $row["eid"];
+                    $cname = $row["cname"];
 
-                        $package_name = $row["package_name"];
-                        $date=$row["edate"];
-                        $duration = $row["duration"];
-                        $verified = $row["verified"];
+                    $package_name = $row["package_name"];
+                    $date = $row["edate"];
+                    $duration = $row["duration"];
+                    $verified = $row["verified"];
 
-                        echo "<tr>
+                    echo "<tr>
                                 <td>$i</td>
                                 <td>$name</td>
                                 <td>$phone</td>
@@ -439,13 +426,12 @@ if(isset($_GET['reset_verify'])){
                             </form>
                                 </td>
                             </tr>";
-                    }
-            }
-            else {
+                }
+            } else {
                 echo "<tr><td colspan='11'>No new enrollment found</td></tr>";
             }
-            
-            ?>    
+
+            ?>
         </table>
     </div>
 </div>

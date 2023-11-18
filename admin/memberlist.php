@@ -16,7 +16,7 @@ if (isset($_GET['delete_member'])) {
     if ($r) {
         // header("location:memberlist.php");
         echo '<script type="text/javascript">';
-      
+
         echo 'Swal.fire(
           "DELETE SUCCESSFULL!",
           "Member Delete Successful",
@@ -71,7 +71,7 @@ if (isset($_GET['delete_member'])) {
                 $email = $row["email"];
                 $image = $row["image"];
 
-        
+
                 echo "<tr>
                         <td>$i</td>
                         <td>$name</td>
@@ -83,14 +83,13 @@ if (isset($_GET['delete_member'])) {
                
                         <td class='h-center'>
                         <form action='edit_member_list.php' method='get'>
-                        <input type='hidden' value='$id' name='member_id' />
-                        <input type='submit' name='edit_member' value='Edit' class='edit_delete_green'>
-                    </form>
-                            <form action='memberlist.php' method='get'>
-                                <input type='hidden' value='$id' name='member_id' />
-                                <input type='submit' name='delete_member' value='Delete' class='edit_delete_red'>
-                            </form>
-                           
+                            <input type='hidden' value='$id' name='member_id' />
+                            <input type='submit' name='edit_member' value='Edit' class='edit_delete_green'>
+                        </form>
+                        <form action='memberlist.php' method='get'>
+                            <input type='hidden' value='$id' name='member_id' />
+                            <input type='submit' name='delete_member' value='Delete' class='edit_delete_red'>
+                         </form>
                         </td>
                     </tr>";
             }
@@ -98,9 +97,6 @@ if (isset($_GET['delete_member'])) {
         </table>
     </div>
 </div>
-
-
-
 
 <script src="../js/js.js"></script>
 

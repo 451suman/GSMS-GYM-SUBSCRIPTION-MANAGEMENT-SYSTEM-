@@ -1,10 +1,8 @@
+<!-- member search in table -->
 <?php
 include('layout/header.php');
 include('layout/left.php');
 include('layout/adminsession.php');
-
-
-
 ?>
 
 <div id="right">
