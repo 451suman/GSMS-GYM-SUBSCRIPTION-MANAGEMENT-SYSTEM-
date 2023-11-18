@@ -6,28 +6,24 @@ include('layout_member/member_session.php');
 
 
 <div id="right">
-    <!-- <link rel="stylesheet" href="css/p.css"> -->
-    <link rel="stylesheet" href="css/member_detail.css">
+  <link rel="stylesheet" href="css/member_detail.css">
+  <?php
+  $conn = new mysqli("localhost", "root", "", "fitness");
+  if ($conn->connect_error) {
+    die("connection error");
+  }
+  $sql = "SELECT * FROM member where mid='$id' ";
+  $r = $conn->query($sql);
+  $row = $r->fetch_assoc();
+  $mid = $row['mid'];
+  $name = $row["name"];
+  $phone = $row["phone"];
+  $email = $row["email"];
+  $image = $row["image"];
+  $date = $row["date"];
 
-
-<?php
-     $conn = new mysqli("localhost","root","","fitness");
-     if($conn->connect_error)
-     {
-         die("connection error");
-     }
-     $sql="SELECT * FROM member where mid='$id' ";
-     $r=$conn->query($sql);
-     $row=$r->fetch_assoc();
-     $mid=$row['mid'];
-     $name = $row["name"];
-     $phone = $row["phone"];
-     $email = $row["email"];
-     $image = $row["image"];
-     $date = $row["date"];  
-
-echo"
-             <div class='container v-center'>
+  echo "
+      <div class='container v-center'>
       <div class='profile-card space-between gap-5'>
         <div class='img-field'>
           <img class='profile-img' src='img/$image' alt=' '/>
@@ -58,15 +54,14 @@ echo"
               <form action='editprofile.php' method='get'>
               <input type='hidden' name='mid' id='' value='$mid' >
               <input type='submit' name='editdetail' id='editdetail_profile' value='Edit Profile Details'>
+              </h6>
                   </form>
-                  </h6>
                   <h6 class='info'> 
                   <form action='member_change_password.php' method='get'>
                   <input type='hidden' name='mid' id='' value='$mid' >
                   <input type='submit' name='change_pass' id='editdetail_profile' value='Change Password'>
-                      </form>
-                      </h6>
-           
+                  </h6>
+                    </form>
             </div>
           </div>
         </div>
@@ -74,7 +69,7 @@ echo"
     </div>
 
 ";
-?>
+  ?>
 </div>
 <?php
 include('layout_member/footer.php');

@@ -48,11 +48,11 @@ echo '</script>';
         <div> <b>LOGIN</b></div>
         <div>
             <label for="email">Email</label><br>
-            <input type="email" name="email" class="transparent" required> <br>
+            <input type="email" id="email" name="email" class="transparent" required> <br>
         </div>
         <div>
             <label for="password">Password</label><br>
-            <input type="password" name="password" class="transparent" maxlength="10" required> <br>
+            <input type="password" id="password" name="password" class="transparent" maxlength="10" required> <br>
 
         </div>
         <div>

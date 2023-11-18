@@ -2,46 +2,39 @@
 include('layout_member/header.php');
 include('layout_member/left.php');
 include('layout_member/member_session.php');
-
-
 ?>
+
 <?php
- $conn = new mysqli("localhost", "root", "", "fitness");
- if ($conn->connect_error) {
-     die("Database connection error");
- }
- $csql = "SELECT * FROM member_subscription_track where mid='$id'" ;
- $r=$conn->query($csql);
- if($r->num_rows>0 == false)
- {
+$conn = new mysqli("localhost", "root", "", "fitness");
+if ($conn->connect_error) {
+    die("Database connection error");
+}
+$csql = "SELECT * FROM member_subscription_track where mid='$id'";
+$r = $conn->query($csql);
+if ($r->num_rows > 0 == false) {
     echo '<script type="text/javascript">';
     echo 'swal.fire({
         icon: "warning",
-          
         text: "No enrollment found. to access this page you have to enroll package first",
-    
     }).then(function() {
         window.location = "index.php";
     });';
-        // echo 'alert("No enrollment found. to access this page you have to enroll package first");';
-        // echo 'window.location.href = "index.php";';
-        echo '</script>';
- }
-
-
+    // echo 'alert("No enrollment found. to access this page you have to enroll package first");';
+    // echo 'window.location.href = "index.php";';
+    echo '</script>';
+}
 ?>
 
 
 <div id="right">
-   
     <div class="mtable_class">
         <table class="mm_membership">
             <tr>
                 <td colspan="8" class="center" style="color:  #FFA559;">
-                <strong> MEMBER SUBSCRIPTION REPORT</strong>
+                    <strong> MEMBER SUBSCRIPTION REPORT</strong>
                 </td>
             </tr>
-            
+
             <?php
             $conn = new mysqli("localhost", "root", "", "fitness");
             if ($conn->connect_error) {
@@ -57,25 +50,18 @@ include('layout_member/member_session.php');
                 $i++;
                 $id = $row["mid"];
                 $name = $row["name"];
-              
-        
-                $renew_date=$row["renew_date"];
-                $expiry_date=$row["expiry_date"];
-                
+                $renew_date = $row["renew_date"];
+                $expiry_date = $row["expiry_date"];
+
+
                 $date = date('F j, Y');
                 // Convert the expiry date and today's date to Unix timestamps
-            $expiry_timestamp = strtotime($expiry_date);
-            $today_timestamp = strtotime($date);
-            // Calculate the difference in seconds
-            $difference = $expiry_timestamp - $today_timestamp;
-
-            // Convert the difference to days
-            $days_remaining = round($difference / (60 * 60 * 24));
-            // if($days_remaining <0)
-            // {
-            //     $days_remaining ="EXPIRE";
-            // }
-
+                $expiry_timestamp = strtotime($expiry_date);
+                $today_timestamp = strtotime($date);
+                // Calculate the difference in seconds
+                $difference = $expiry_timestamp - $today_timestamp;
+                // Convert the difference to days
+                $days_remaining = round($difference / (60 * 60 * 24));
 
                 echo " <tr>
                 <td>Name: $name</td>
@@ -86,14 +72,11 @@ include('layout_member/member_session.php');
                 <tr>
                 <td>Expiry Date: $expiry_date</td>
                 </tr>
-                    <tr>
-                    <td>Remaining Days: $days_remaining </td>
-                    </tr>";
+                <tr>
+                <td>Remaining Days: $days_remaining </td>
+                </tr>";
             }
             ?>
-           
-                        
-        
         </table>
     </div>
 </div>

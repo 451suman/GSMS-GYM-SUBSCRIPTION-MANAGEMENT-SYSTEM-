@@ -1,52 +1,42 @@
 <?php
 include('layout_member/header.php');
 include('layout_member/left.php');
-
-
 ?>
 
 <?php
 session_start();
-if(!isset($_SESSION['member']))
-{
+if (!isset($_SESSION['member'])) {
     header("location:login.php");
 }
-$row=$_SESSION['member'];
-$id=$row['mid'];
-$n=$row['name'];
-$e=$row['email'];
-$p=$row['phone'];
+$row = $_SESSION['member'];
+$id = $row['mid'];
+$n = $row['name'];
+$e = $row['email'];
+$p = $row['phone'];
 ?>
-
-
-
 
 <link rel="stylesheet" href="css/index.css">
 
-
 <div id="right">
 
-<div class="right_indexx"> 
-    <?php
-        $conn=new mysqli("localhost","root","","fitness");
-        if($conn->connect_error)
-        {
+    <div class="right_indexx">
+        <?php
+        $conn = new mysqli("localhost", "root", "", "fitness");
+        if ($conn->connect_error) {
             die("Database connection error");
         }
-        $sql="select * from category 
+        $sql = "select * from category 
         ORDER BY duration ASC
         ";
-        $result=$conn->query($sql);
-        $i=0;   
+        $result = $conn->query($sql);
         while ($row = $result->fetch_assoc()) {
-            $i++;
-            $cid = $row["cid"]; // Add this line to fetch the id
+            $cid = $row["cid"]; 
             $pname = $row["package_name"];
             $cname = $row["cname"];
             $duration = $row["duration"];
             $price = $row["package_price"];
-            $image=$row["image"];
-           
+            $image = $row["image"];
+
             echo "
             <div class='index_content'>
             <div class='card'>
@@ -64,7 +54,6 @@ $p=$row['phone'];
                 Price:$price <br>
              <form action='enroll.php ' method='post'>
 
-            
               <input type='hidden' name='duration' id=''value='$duration' > 
               <input type='hidden' name='pname' id=''value='$pname' > 
               <input type='hidden' name='price' id=''value='$price' > 
@@ -79,16 +68,16 @@ $p=$row['phone'];
             
             ";
         }
-        
+
         ?>
-        </div>
-    
+    </div>
 
 
-     
 
-    
-    
+
+
+
+
 
 
 
