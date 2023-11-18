@@ -24,6 +24,8 @@ if ($r->num_rows > 0 == false) {
     // echo 'window.location.href = "index.php";';
     echo '</script>';
 }
+
+
 // request routine botton code 
 if (isset($_GET['request_routine'])) {
     $mid = $_GET['mid'];

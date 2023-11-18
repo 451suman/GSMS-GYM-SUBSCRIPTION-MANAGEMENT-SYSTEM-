@@ -2,11 +2,6 @@
 include('main_dash/nav.php');
 ?>
 
-
-
-
-
- 
 <!-- <div id="right"> -->
    
     <form action="forget_put_OTP.php" method="post" id="login_form" autocomplete="off">

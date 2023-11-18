@@ -79,34 +79,27 @@ if (isset($_POST['otp_Submit'])) {
     $email = $_POST["forget_email"];
     $mid = $_POST["forget_mid"];
 
-    $check_otp = "SELECT m_otp, m_opt_expire_time FROM member WHERE mid='$mid'";
+    $check_otp = "SELECT * FROM member WHERE mid='$mid'";
     $r = $conn->query($check_otp);
 
-    if ($r->num_rows > 0 && $row = $r->fetch_assoc()) {
+    if ($r->num_rows > 0 ) {
+        $row = $r->fetch_assoc();
         $DB_otp = $row['m_otp'];
         $DB_otp_eDate = $row['m_opt_expire_time'];
 
-        if($hash_otp!= $DB_otp)
-        {
-            echo '<script type="text/javascript">';
-            echo 'swal.fire({
-                icon: "error",
-                title: "Error!",
-                text: "The OTP (One-Time Password) did not matched",
-            }).then(function() {
-                window.location = "forgetpassEmail.php";
-            });';
-            echo '</script>';
-        }
+      
 
         date_default_timezone_set('Asia/Kathmandu');
         $current = date('Y-m-d H:i:s');
 
+        // echo $current;
+        // echo '<br>';
+        // echo $DB_otp_eDate;
+        // die();
         // Check if the OTP has expired
        
 
         if ($DB_otp_eDate < $current) {
-
             // OTP has expired
             echo '<script type="text/javascript">';
             echo 'swal.fire({
@@ -117,12 +110,27 @@ if (isset($_POST['otp_Submit'])) {
                 window.location = "forgetpassEmail.php";
             });';
             echo '</script>';
-        } else {
-            // OTP is valid, display success message
+        } 
+        else if($hash_otp == $DB_otp)
+        {
             echo '<script type="text/javascript">';
             echo 'swal.fire({
                 icon: "success",
                 text: "The OTP (One-Time Password) has been successfully verified.",
+            });';
+            echo '</script>';
+            
+        }
+        
+        else {
+           
+            echo '<script type="text/javascript">';
+            echo 'swal.fire({
+                icon: "error",
+                title: "Error!",
+                text: "The OTP (One-Time Password) did not matched",
+            }).then(function() {
+                window.location = "forgetpassEmail.php";
             });';
             echo '</script>';
         }

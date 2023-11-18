@@ -19,7 +19,8 @@ if(isset($_POST['searchs']))
 
             date_default_timezone_set('Asia/Kathmandu');
             // $otp_expiryy=date('y-m-d h:i:s');
-            $otp_expiry = date('Y-m-d H:i:s', time() + 60 * 3);
+            // $otp_expiry = date('Y-m-d H:i:s', time() + 60 * 3);
+            $otp_expiry = date('Y-m-d H:i:s', time() + 60 );
 
 
             $otp = rand(100000, 999999);
@@ -35,15 +36,15 @@ if(isset($_POST['searchs']))
                 {
 
                     $to = "$email"; // Recipient's email address
-                    $subject = "GYM Subscription MS"; // Subject of your email
+                    $subject = "Reset password OTP from GYM Subscription Mamagement Sysytem"; // Subject of your email
                     $message = "Good day there, $name! Your one-time password (OTP) is $otp. 
                     Remember that this OTP is only valid until $otp_expiry.  From GSMS
                     "; // Message to be sent
                     
                     $headers = "From: orozmush@gmail.com\r\n";
-                    $headers .= "Reply-To: orozmush@gmail.com\r\n";
-                    $headers .= "MIME-Version: 1.0\r\n";
-                    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+                    // $headers .= "Reply-To: orozmush@gmail.com\r\n";
+                    // $headers .= "MIME-Version: 1.0\r\n";
+                    // $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
                     
                     
                     if (mail($to, $subject, $message, $headers)) {
@@ -56,8 +57,15 @@ if(isset($_POST['searchs']))
                         });';
                         echo '</script>';
                     
-                    } else {
-                        echo "Email delivery failed...";
+                    }else{
+                        echo '<script type="text/javascript">';
+                        echo 'swal.fire({
+                             icon: "error",
+                            title: "ERROR!",
+                            text: "FAILED TO SEND MAIL.",
+                           
+                        });';
+                        echo '</script>';
                     }
                   
                 }
